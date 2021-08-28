@@ -3,11 +3,12 @@ import Header from './Header';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {fetchAllArt, fetchArtCount, deleteArt} from '../actions';
+import { Dimmer, Loader, Image, Segment } from 'semantic-ui-react'
 
 const AdminArt = ({auth, artList, fetchAllArt, fetchArtCount, artCount, deleteArt})=>{
     const [pageNumber, setPageNumber] = useState(1);
     useEffect(()=>{
-        fetchAllArt(pageNumber, 10);
+        // fetchAllArt(pageNumber, 10);
         fetchArtCount();
     }, [])
 
@@ -123,11 +124,11 @@ const AdminArt = ({auth, artList, fetchAllArt, fetchArtCount, artCount, deleteAr
                     <table className="ui table" style={{border:"none"}}>
                         <thead>
                             <tr>
-                            <th className="single line">Item</th>
-                            <th>Name</th>
-                            <th>Artist</th>
-                            <th>Description</th>
-                            <th>Action</th>
+                                <th className="single line">Item</th>
+                                <th>Name</th>
+                                <th>Artist</th>
+                                <th>Description</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -141,6 +142,18 @@ const AdminArt = ({auth, artList, fetchAllArt, fetchArtCount, artCount, deleteAr
                             </tr>
                         </tfoot>
                         </table>
+                        {
+                                artList?""
+                                :
+                                <div className="ui container">
+                                    <div className="ui active big centered inline loader" align="center">
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        Loading
+                                    </div>
+                                </div>
+                        }
                     </div>
                 </div>
             </div>
