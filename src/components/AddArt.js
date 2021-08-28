@@ -112,11 +112,10 @@ const AddArt = ({auth, addArt})=>{
                             {
                                 loading?
                                 <div className="ui container">
-                                    <div className="ui active big centered inline loader" align="center">
+                                    <div className="ui active centered inline loader" align="center">
                                         <br/>
                                         <br/>
                                         <br/>
-                                        Loading
                                     </div>
                                 </div>
                                 :""
