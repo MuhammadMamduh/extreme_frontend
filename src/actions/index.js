@@ -83,8 +83,6 @@ export const addArt = (formData, token)=>{
         backend.defaults.headers.common['Authorization'] = "Bearer "+ token;
         const response = await backend.post('/art', formData, config);
         dispatch({type: CREATE_ART, payload: response.data});
-
-        history.push('/admin/art'); // push will make u navigate
     };
 };
 

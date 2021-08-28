@@ -12,7 +12,7 @@ import {connect} from 'react-redux';
 const App = ({auth})=>{
 
     return  (
-                <div className="ui container">
+                <div className="ui container" >
                     <Router history={history}>
                         <div>
                             <Switch>

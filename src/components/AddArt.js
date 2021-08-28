@@ -5,10 +5,11 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {addArt} from '../actions';
 import {TextArea } from 'semantic-ui-react'
+import history from '../history';
 
 const AddArt = ({auth, addArt})=>{
     const [errors, setErrors] = useState(null);
-    const [success, setSuccess] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const onSubmit = (event)=>{
         event.preventDefault();
@@ -22,12 +23,18 @@ const AddArt = ({auth, addArt})=>{
        
 
         addArt(formData, sessionStorage.getItem('token'))
-        .then(() => {})
+        .then((res) => {
+            if(res)
+            {
+                history.push('/admin/art'); // push will make u navigate
+            }
+        })
         .catch((error)=>{
             if (error.response) {
                 setErrors(error.response.data.msg);
               }
         });
+        setLoading(true);
     }
 
 
@@ -103,6 +110,18 @@ const AddArt = ({auth, addArt})=>{
                                         </div>
                                     )
                                     :""
+                            }
+                            {
+                                {loading}?""
+                                :
+                                <div className="ui container">
+                                    <div className="ui active big centered inline loader" align="center">
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        Loading
+                                    </div>
+                                </div>
                             }
                         </div>
                     </div>
