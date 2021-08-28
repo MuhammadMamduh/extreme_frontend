@@ -24,10 +24,8 @@ const AddArt = ({auth, addArt})=>{
 
         addArt(formData, sessionStorage.getItem('token'))
         .then((res) => {
-            if(res)
-            {
-                history.push('/admin/art'); // push will make u navigate
-            }
+
+            history.push('/admin/art'); // push will make u navigate
         })
         .catch((error)=>{
             if (error.response) {
@@ -112,8 +110,7 @@ const AddArt = ({auth, addArt})=>{
                                     :""
                             }
                             {
-                                {loading}?""
-                                :
+                                {loading}?
                                 <div className="ui container">
                                     <div className="ui active big centered inline loader" align="center">
                                         <br/>
@@ -122,6 +119,7 @@ const AddArt = ({auth, addArt})=>{
                                         Loading
                                     </div>
                                 </div>
+                                :""
                             }
                         </div>
                     </div>
