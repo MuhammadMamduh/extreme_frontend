@@ -3,17 +3,18 @@ import Header from './Header';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {fetchAllArt, fetchArtCount, deleteArt} from '../actions';
-import { Dimmer, Loader, Image, Segment } from 'semantic-ui-react'
 
 const AdminArt = ({auth, artList, fetchAllArt, fetchArtCount, artCount, deleteArt})=>{
     const [pageNumber, setPageNumber] = useState(1);
+    const [numberOfPages, setNumberOfPages] = useState(0);
+
     useEffect(()=>{
-        // fetchAllArt(pageNumber, 10);
         fetchArtCount();
     }, [])
 
     useEffect(()=>{
-        fetchAllArt(pageNumber, 10);
+        fetchAllArt(pageNumber, 5);
+        setNumberOfPages(getNumberOfPages(5));
     }, [pageNumber])
 
     let rows;
@@ -48,21 +49,22 @@ const AdminArt = ({auth, artList, fetchAllArt, fetchArtCount, artCount, deleteAr
         })
     }
 
+    const getNumberOfPages = (limit)=>{
+        let numberOfPages=1;
+        if(artCount)
+        {        
+            if(artCount.length>limit)
+            {
+                numberOfPages = artCount.length%limit===0?artCount.length/limit:Math.ceil(artCount.length/limit);
+                console.log("gotHear");
+            }
+        }
+
+        return numberOfPages;
+    }
     const paginationItems = ()=>{
         if(artList && artCount)
         {
-            let numberOfPages;
-            if(artCount.length<=10)
-            {
-                numberOfPages = 1;
-                
-            }
-            else
-            {
-                numberOfPages = artCount.length%10===0?artCount.length/10:Math.ceil(artCount.length/10);
-            }
-            
-
             let array = [];
             array.push  (                                   
                             <Link key="-1" to="#" className="icon item" onClick={()=>{setPageNumber(pageNumber-1); window.scrollTo(0,0);}} style={{pointerEvents: `${pageNumber===1?"none":""}` }}>
@@ -117,9 +119,7 @@ const AdminArt = ({auth, artList, fetchAllArt, fetchArtCount, artCount, deleteAr
                 <div style={{margin:"10px", borderLeft:"3px solid #e6e6e6", width:"1px", height:"1400px", display:"inline", color:"grey"}}></div>
                 
                 <div className="thirteen wide column">
-                    {/* <div className="ui header" > */}
                     <h3 style={{padding: 20, backgroundColor:"#f0f2f5"}}>Art Pieces</h3>
-                    {/* </div> */}
                     <div className="ui container">
                     <table className="ui table" style={{border:"none"}}>
                         <thead>

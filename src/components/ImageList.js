@@ -15,8 +15,8 @@ const ImageList = ({auth, artList, fetchAllArt, fetchArtCount, artCount})=>{
     }, [])
     
     useEffect(()=>{
-        fetchAllArt(pageNumber, 12);
-        setNumberOfPages(getNumberOfPages(12));
+        fetchAllArt(pageNumber, 8);
+        setNumberOfPages(getNumberOfPages(8));
 
         console.log("numberOfPages: " + numberOfPages);
         console.log("numberOfPages: " + getNumberOfPages());
@@ -37,7 +37,7 @@ const ImageList = ({auth, artList, fetchAllArt, fetchArtCount, artCount})=>{
         let numberOfPages=1;
         if(artCount)
         {        
-            if(artCount.length>10)
+            if(artCount.length>limit)
             {
                 numberOfPages = artCount.length%limit===0?artCount.length/limit:Math.ceil(artCount.length/limit);
                 console.log("gotHear");
@@ -61,6 +61,19 @@ const ImageList = ({auth, artList, fetchAllArt, fetchArtCount, artCount})=>{
                         <div className="ui four cards">
                             {images}
                         </div>
+
+                        {
+                                artList?""
+                                :
+                                <div className="ui container">
+                                    <div className="ui active big centered inline loader" align="center">
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        {/* Loading */}
+                                    </div>
+                                </div>
+                        }
                         <br/>
                         <br/>
                         <div className="ui grid ui center aligned">

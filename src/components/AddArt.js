@@ -8,7 +8,7 @@ import {TextArea } from 'semantic-ui-react'
 
 const AddArt = ({auth, addArt})=>{
     const [errors, setErrors] = useState(null);
-    // const [success, setSuccess] = useState(false);
+    const [success, setSuccess] = useState(false);
 
     const onSubmit = (event)=>{
         event.preventDefault();
