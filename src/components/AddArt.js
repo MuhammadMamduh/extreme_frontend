@@ -110,7 +110,7 @@ const AddArt = ({auth, addArt})=>{
                                     :""
                             }
                             {
-                                {loading}?
+                                loading?
                                 <div className="ui container">
                                     <div className="ui active big centered inline loader" align="center">
                                         <br/>
