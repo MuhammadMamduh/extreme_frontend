@@ -20,7 +20,6 @@ const ImageList = ({auth, artList, fetchAllArt, fetchArtCount, artCount})=>{
 
     }, [pageNumber, artCount])
 
-    let images;
     if(artList)
     {    
         artList = artList.map((art)=>{

@@ -3,19 +3,21 @@ import Header from './Header';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {fetchAllArt, fetchArtCount, deleteArt} from '../actions';
+import { Pagination } from 'semantic-ui-react';
 
 const AdminArt = ({auth, artList, fetchAllArt, fetchArtCount, artCount, deleteArt})=>{
     const [pageNumber, setPageNumber] = useState(1);
+    const [numberOfPages, setNumberOfPages] = useState(0);
+    
     useEffect(()=>{
-        // fetchAllArt(pageNumber, 10);
         fetchArtCount();
     }, [])
 
     useEffect(()=>{
         fetchAllArt(pageNumber, 5);
-    }, [pageNumber])
+        setNumberOfPages(getNumberOfPages(5));
+    }, [pageNumber, artCount])
 
-    let rows;
     if(artList)
     {
         artList = artList.map((art)=>{
@@ -47,38 +49,24 @@ const AdminArt = ({auth, artList, fetchAllArt, fetchArtCount, artCount, deleteAr
         })
     }
 
-    const paginationItems = ()=>{
-        if(artList && artCount)
-        {
-            let numberOfPages = 1;
-            if(artCount.length>5)
+    const getNumberOfPages = (limit)=>{
+        let numberOfPages=1;
+        if(artCount)
+        {        
+            if(artCount.length>limit)
             {
-                numberOfPages = artCount.length%5===0?artCount.length/5:Math.ceil(artCount.length/5);
-                
+                numberOfPages = artCount.length%limit===0?artCount.length/limit:Math.ceil(artCount.length/limit);
+                console.log("gotHear");
             }
-            
-
-            let array = [];
-            array.push  (                                   
-                            <Link key="-1" to="#" className="icon item" onClick={()=>{setPageNumber(pageNumber-1); window.scrollTo(0,0); artList=[]}} style={{pointerEvents: `${pageNumber===1?"none":""}` }}>
-                                <i className="left chevron icon" />
-                            </Link>
-                        );
-            for(let i = 0; i < numberOfPages; i++){
-                array.push(<Link key={i} to="#" className="item" onClick={()=>{setPageNumber(i+1); window.scrollTo(0,0); artList=[]}}>{i+1}</Link>)
-            }
-
-            array.push  (                                   
-                            <Link key="-10" to="#" className="icon item" onClick={()=>{setPageNumber(pageNumber+1); window.scrollTo(0,0); artList=[]}} style={{pointerEvents: `${pageNumber===numberOfPages?"none":""}` }}>
-                                <i className="right chevron icon" />
-                            </Link>
-                        );
-            return (
-                <div className="ui pagination menu" align="center">
-                    {array}
-                </div>
-                );
         }
+
+        return numberOfPages;
+    }
+    
+    const onChange = (e, pageInfo)=>{
+        console.log(pageInfo.activePage);
+        setPageNumber(pageInfo.activePage);
+        artList = [];
     }
 
     return (
@@ -130,7 +118,25 @@ const AdminArt = ({auth, artList, fetchAllArt, fetchArtCount, artCount, deleteAr
                         <tfoot>
                             <tr>
                             <th colSpan={5} className="ui center aligned">
-                                {paginationItems()}
+                            <br/>
+                        <br/>
+                        <div className="ui grid ui center aligned">
+                            <Pagination 
+                                boundaryRange={0}
+                                defaultActivePage={1}
+                                ellipsisItem={null}
+                                firstItem={null}
+                                lastItem={null}
+                                siblingRange={1}
+
+                                activePage={pageNumber}
+                                totalPages={numberOfPages}
+                                onPageChange={onChange} 
+                                
+                                align="center"
+                            />
+                            
+                        </div>
                             </th>
                             </tr>
                         </tfoot>
@@ -143,7 +149,7 @@ const AdminArt = ({auth, artList, fetchAllArt, fetchArtCount, artCount, deleteAr
                                         <br/>
                                         <br/>
                                         <br/>
-                                        Loading ...
+                                        Loading
                                     </div>
                                 </div>
                         }
