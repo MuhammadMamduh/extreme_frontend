@@ -6,15 +6,13 @@ import {fetchAllArt, fetchArtCount, deleteArt} from '../actions';
 
 const AdminArt = ({auth, artList, fetchAllArt, fetchArtCount, artCount, deleteArt})=>{
     const [pageNumber, setPageNumber] = useState(1);
-    const [numberOfPages, setNumberOfPages] = useState(0);
-
     useEffect(()=>{
+        // fetchAllArt(pageNumber, 10);
         fetchArtCount();
     }, [])
 
     useEffect(()=>{
         fetchAllArt(pageNumber, 5);
-        setNumberOfPages(getNumberOfPages(5));
     }, [pageNumber])
 
     let rows;
@@ -49,22 +47,17 @@ const AdminArt = ({auth, artList, fetchAllArt, fetchArtCount, artCount, deleteAr
         })
     }
 
-    const getNumberOfPages = (limit)=>{
-        let numberOfPages=1;
-        if(artCount)
-        {        
-            if(artCount.length>limit)
-            {
-                numberOfPages = artCount.length%limit===0?artCount.length/limit:Math.ceil(artCount.length/limit);
-                console.log("gotHear");
-            }
-        }
-
-        return numberOfPages;
-    }
     const paginationItems = ()=>{
         if(artList && artCount)
         {
+            let numberOfPages = 1;
+            if(artCount.length>5)
+            {
+                numberOfPages = artCount.length%5===0?artCount.length/5:Math.ceil(artCount.length/5);
+                
+            }
+            
+
             let array = [];
             array.push  (                                   
                             <Link key="-1" to="#" className="icon item" onClick={()=>{setPageNumber(pageNumber-1); window.scrollTo(0,0);}} style={{pointerEvents: `${pageNumber===1?"none":""}` }}>
