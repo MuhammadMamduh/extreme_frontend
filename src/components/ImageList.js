@@ -18,14 +18,12 @@ const ImageList = ({auth, artList, fetchAllArt, fetchArtCount, artCount})=>{
         fetchAllArt(pageNumber, 8);
         setNumberOfPages(getNumberOfPages(8));
 
-        console.log("numberOfPages: " + numberOfPages);
-        console.log("numberOfPages: " + getNumberOfPages());
     }, [pageNumber, artCount])
 
     let images;
     if(artList)
     {    
-        images = artList.map((art)=>{
+        artList = artList.map((art)=>{
             return  (
                         <ArtModal id={art._id} artist= {art.artist} image={art.picture} description={art.description}/>
                     );
@@ -50,6 +48,7 @@ const ImageList = ({auth, artList, fetchAllArt, fetchArtCount, artCount})=>{
     const onChange = (e, pageInfo)=>{
         console.log(pageInfo.activePage);
         setPageNumber(pageInfo.activePage);
+        artList = [];
     }
     return (
                 <div>
@@ -59,7 +58,7 @@ const ImageList = ({auth, artList, fetchAllArt, fetchArtCount, artCount})=>{
                     <div className="ui container" style={{padding: 40, backgroundColor:"#f0f2f5"}}>
                         <h1>Gallery</h1>
                         <div className="ui four cards">
-                            {images}
+                            {artList}
                         </div>
 
                         {
