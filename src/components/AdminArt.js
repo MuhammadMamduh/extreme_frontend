@@ -18,7 +18,7 @@ const AdminArt = ({auth, artList, fetchAllArt, fetchArtCount, artCount, deleteAr
     let rows;
     if(artList)
     {
-        rows = artList.map((art)=>{
+        artList = artList.map((art)=>{
             return (
                         <tr key={art._id}>
                             <td>
@@ -60,16 +60,16 @@ const AdminArt = ({auth, artList, fetchAllArt, fetchArtCount, artCount, deleteAr
 
             let array = [];
             array.push  (                                   
-                            <Link key="-1" to="#" className="icon item" onClick={()=>{setPageNumber(pageNumber-1); window.scrollTo(0,0);}} style={{pointerEvents: `${pageNumber===1?"none":""}` }}>
+                            <Link key="-1" to="#" className="icon item" onClick={()=>{setPageNumber(pageNumber-1); window.scrollTo(0,0); artList=[]}} style={{pointerEvents: `${pageNumber===1?"none":""}` }}>
                                 <i className="left chevron icon" />
                             </Link>
                         );
             for(let i = 0; i < numberOfPages; i++){
-                array.push(<Link key={i} to="#" className="item" onClick={()=>{setPageNumber(i+1); window.scrollTo(0,0);}}>{i+1}</Link>)
+                array.push(<Link key={i} to="#" className="item" onClick={()=>{setPageNumber(i+1); window.scrollTo(0,0); artList=[]}}>{i+1}</Link>)
             }
 
             array.push  (                                   
-                            <Link key="-10" to="#" className="icon item" onClick={()=>{setPageNumber(pageNumber+1); window.scrollTo(0,0);}} style={{pointerEvents: `${pageNumber===numberOfPages?"none":""}` }}>
+                            <Link key="-10" to="#" className="icon item" onClick={()=>{setPageNumber(pageNumber+1); window.scrollTo(0,0); artList=[]}} style={{pointerEvents: `${pageNumber===numberOfPages?"none":""}` }}>
                                 <i className="right chevron icon" />
                             </Link>
                         );
@@ -109,7 +109,7 @@ const AdminArt = ({auth, artList, fetchAllArt, fetchArtCount, artCount, deleteAr
                         </div>
                 </div>
 
-                <div style={{margin:"10px", borderLeft:"3px solid #e6e6e6", width:"1px", height:"1400px", display:"inline", color:"grey"}}></div>
+                <div style={{margin:"10px", borderLeft:"3px solid #e6e6e6", width:"1px", height:"800px", display:"inline", color:"grey"}}></div>
                 
                 <div className="thirteen wide column">
                     <h3 style={{padding: 20, backgroundColor:"#f0f2f5"}}>Art Pieces</h3>
@@ -125,7 +125,7 @@ const AdminArt = ({auth, artList, fetchAllArt, fetchArtCount, artCount, deleteAr
                             </tr>
                         </thead>
                         <tbody>
-                            {rows}
+                            {artList}
                         </tbody>
                         <tfoot>
                             <tr>
@@ -143,7 +143,7 @@ const AdminArt = ({auth, artList, fetchAllArt, fetchArtCount, artCount, deleteAr
                                         <br/>
                                         <br/>
                                         <br/>
-                                        Loading
+                                        Loading ...
                                     </div>
                                 </div>
                         }
