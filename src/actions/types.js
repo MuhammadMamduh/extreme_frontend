@@ -1,0 +1,11 @@
+export const SIGN_IN = 'SIGN_IN';
+export const SIGN_OUT = 'SIGN_OUT';
+export const REGISTER = 'REGISTER';
+export const CREATE_ART = 'CREATE_ART';
+export const FETCH_ALL_ART = 'FETCH_ALL_ART';
+export const FETCH_ART = 'FETCH_ART';
+export const DELETE_ART = 'DELETE_ART';
+export const EDIT_ART = 'EDIT_ART';
+export const FETCH_USERS = 'FETCH_USERS';
+export const FETCH_USERS_COUNT = 'FETCH_USERS_COUNT';
+export const FETCH_ART_COUNT = 'FETCH_ART_COUNT';
