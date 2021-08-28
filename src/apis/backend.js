@@ -1,5 +1,5 @@
 import axios from 'axios';
 
 export default axios.create({
-    baseURL: process.env.BACKEND_API_2
+    baseURL: 'https://mamduh-extreme-backend.herokuapp.com'
 });
